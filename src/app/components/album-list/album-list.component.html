@@ -1,0 +1,11 @@
+<h2>Albums List</h2>
+
+<div *ngIf="albums.length === 0">Loading albums...</div>
+
+<ul>
+  <li *ngFor="let album of albums">
+    <strong>ID:</strong> {{ album.id }} - <strong>Title:</strong>
+
+    {{ album.title }}
+  </li>
+</ul>

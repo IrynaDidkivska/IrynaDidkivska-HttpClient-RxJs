@@ -1,0 +1,47 @@
+<h2>Fitness Exercises</h2>
+
+<img
+  src="https://us.images.westend61.de/0001742272pw/group-of-four-multiethnic-fitness-women-having-fun-taking-selfie-at-a-fitness-studio-cheerful-women-in-fitness-wear-showing-their-muscles-for-a-selfie-JLPSF15345.jpg"
+  alt=""
+/>
+
+<div>
+  <h3>Add New Exercise</h3>
+  <input [(ngModel)]="newExercise.name" placeholder="Exercise Name" required />
+  <input
+    [(ngModel)]="newExercise.reps"
+    type="number"
+    placeholder="0"
+    required
+  />
+  <input [(ngModel)]="newExercise.date" type="date" required />
+  <button (click)="addExercise()">Add Exercise</button>
+</div>
+
+<div *ngIf="selectedExercise">
+  <h3>Edit Exercise</h3>
+  <input
+    [(ngModel)]="selectedExercise.name"
+    placeholder="Exercise Name"
+    required
+  />
+  <input
+    [(ngModel)]="selectedExercise.reps"
+    type="number"
+    placeholder="Reps"
+    required
+  />
+  <input [(ngModel)]="selectedExercise.date" type="date" required />
+  <button (click)="updateExercise()">Update</button>
+  <button (click)="selectedExercise = null">Cancel</button>
+</div>
+
+<ul>
+  <li *ngFor="let exercise of exercises">
+    <strong>ID:</strong> {{ exercise.id }} - <strong>Name:</strong>
+    {{ exercise.name }} - <strong>Reps:</strong> {{ exercise.reps }} -
+    <strong>Date:</strong> {{ exercise.date }}
+    <button (click)="selectExercise(exercise)">Edit</button>
+    <button (click)="deleteExercise(exercise.id)">Delete</button>
+  </li>
+</ul>
