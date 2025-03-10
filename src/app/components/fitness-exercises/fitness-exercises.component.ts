@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Exercise } from "../../classes/exercise";
 import { NgFor, NgIf } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { FitnessService } from "../../services/fitness.service";
+import { interval, Subscription } from "rxjs";
 
 @Component({
   selector: "app-fitness-exercises",
@@ -10,7 +11,7 @@ import { FitnessService } from "../../services/fitness.service";
   templateUrl: "./fitness-exercises.component.html",
   styleUrl: "./fitness-exercises.component.css",
 })
-export class FitnessExercisesComponent implements OnInit {
+export class FitnessExercisesComponent implements OnInit, OnDestroy {
   exercises: Exercise[] = [];
   newExercise: Exercise = new Exercise(
     0,
@@ -20,10 +21,19 @@ export class FitnessExercisesComponent implements OnInit {
   );
   selectedExercise: Exercise | null = null;
 
+  // Counter properties
+  counter: number = 0;
+  isRunning: boolean = false;
+  private counterSubscription: Subscription | null = null;
+
   constructor(private exerciseService: FitnessService) {}
 
   ngOnInit() {
     this.getExercises();
+  }
+
+  ngOnDestroy() {
+    this.stopCounter();
   }
 
   getExercises() {
@@ -74,5 +84,28 @@ export class FitnessExercisesComponent implements OnInit {
       },
       error: (error) => console.error("Error deleting exercise:", error),
     });
+  }
+
+  // Counter methods
+  startCounter() {
+    if (!this.isRunning) {
+      this.isRunning = true;
+      this.counterSubscription = interval(1000).subscribe(() => {
+        this.counter++;
+      });
+    }
+  }
+
+  stopCounter() {
+    if (this.isRunning && this.counterSubscription) {
+      this.isRunning = false;
+      this.counterSubscription.unsubscribe();
+      this.counterSubscription = null;
+    }
+  }
+
+  resetCounter() {
+    this.stopCounter();
+    this.counter = 0;
   }
 }

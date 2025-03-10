@@ -17,8 +17,8 @@ export const appConfig: ApplicationConfig = {
     // Обов'язкове підключення для роботи HttpClient👇
     provideHttpClient(),
     // Фейковий бекенд для другого прикладу для get(), post(), put(), delete() запитів
-    importProvidersFrom(
-      HttpClientInMemoryWebApiModule.forRoot(BackendServiceService)
-    ),
+    // importProvidersFrom(
+    //   HttpClientInMemoryWebApiModule.forRoot(BackendServiceService)
+    // ),
   ],
 };

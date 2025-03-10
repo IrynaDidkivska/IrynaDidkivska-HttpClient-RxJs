@@ -1,9 +1,21 @@
 <h2>Fitness Exercises</h2>
 
-<img
-  src="https://us.images.westend61.de/0001742272pw/group-of-four-multiethnic-fitness-women-having-fun-taking-selfie-at-a-fitness-studio-cheerful-women-in-fitness-wear-showing-their-muscles-for-a-selfie-JLPSF15345.jpg"
-  alt=""
-/>
+<p class="backend-notice">
+  To utilize all the methods from the fake backend, please ensure that the
+  relevant code in the <b>app.config.ts</b> file is uncommented.
+</p>
+
+<div class="counter-section">
+  <img
+    src="https://us.images.westend61.de/0001742272pw/group-of-four-multiethnic-fitness-women-having-fun-taking-selfie-at-a-fitness-studio-cheerful-women-in-fitness-wear-showing-their-muscles-for-a-selfie-JLPSF15345.jpg"
+    alt=""
+  />
+  <h3>Workout Timer</h3>
+  <p>Time: {{ counter }} seconds</p>
+  <button (click)="startCounter()" [disabled]="isRunning">Start</button>
+  <button (click)="stopCounter()" [disabled]="!isRunning">Stop</button>
+  <button (click)="resetCounter()">Reset</button>
+</div>
 
 <div>
   <h3>Add New Exercise</h3>
@@ -36,6 +48,7 @@
   <button (click)="selectedExercise = null">Cancel</button>
 </div>
 
+<!-- Exercise List -->
 <ul>
   <li *ngFor="let exercise of exercises">
     <strong>ID:</strong> {{ exercise.id }} - <strong>Name:</strong>
